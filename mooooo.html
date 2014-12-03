@@ -10,11 +10,19 @@
         <script type="text/javascript">
 
 var data; // a global
+var names;
 
   d3.json("areas.json", function(json) {
   data = json;
-    console.log(data);
+  names = d3.keys(data[0]);
+for (var i = 0; i < data.length; i++) {           
+    console.log(data[i]["Local Authority Name"]) ; 
+    console.log(data[i][names[0]]);
+
+};
+    console.log(names);
 });
+  
 
         </script>
     </body>
