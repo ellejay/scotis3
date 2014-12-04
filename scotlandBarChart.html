@@ -14,7 +14,8 @@
 	<script>
 
 //CHANGE THIS VARIABLE TO BE THE CITY THAT IS SENT TO THIS SCRIPT
-var chosenCity = "Highland";
+var chosenCity = window.name;
+console.log(chosenCity);
 //////////////////////////////////////////////////////////////////////////////////////////
 var overallRank;
 var educationRank;
@@ -27,6 +28,7 @@ d3.json("areas.json", function(error, data){
 	for(var i = 0; i< data.length;i++){
 		//If the city name matches the one given
 		if(data[i]["Local Authority Name"] == chosenCity){
+			console.log(data[i]["Local Authority Name"]);
 			//Get the values for each topic
 			overallRank = data[i]["Overall Average SIMD 2012 Rank"];
 			educationRank = data[i]["Education, Skills and Training domain 2012 average rank1"];
