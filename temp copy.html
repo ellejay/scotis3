@@ -6,21 +6,19 @@
 </head>
 <body>
 
+	
 <script>
 var data; 
 var names;
-
-
+var pieData;
 
 d3.json("areas.json", function(json) {
     data = json;
     names = d3.keys(data[0]);
-    pieData = names[1];
     for (var i = 0; i < data.length; i++) {           
         console.log(data[i]["Local Authority Name"]) ; 
         console.log(data[i][names[0]]);
-};
-
+});
 </script>
 
 <link href='http://fonts.googleapis.com/css?family=Raleway:400,700' rel='stylesheet' type='text/css'>
@@ -107,12 +105,12 @@ return false;
 		<tr>
             <!-- <td><input type="radio" name="group1" value=names[0] > 
             //	<label style="font-size: 12px;" for=names[0]>Local Authority Name</label></td> -->
-            <td><input type="radio" name="group1" value=1 onclick="pieChanger(1)" > 
-            	<label style="font-size: 12px;" for=1>Total Population</label> </td>
-            <td><input type="radio" name="group1" value=2 onclick="pieChanger(2)"> 
-            	<label style="font-size: 12px;" for=2>Average Best-fit Working Age Population</label></td>
-            <td><input type="radio" name="group1" value=3 onclick="pieChanger(3)"> 
-            	<label style="font-size: 12px;" for=3>Overall Average SIMD 2012 Score</label></td>
+            <td><input type="radio" name="group1" value=names[1] onclick="pieChanger(this.value)" > 
+            	<label style="font-size: 12px;" for=names[1]>Total Population</label> </td>
+            <td><input type="radio" name="group1" value=names[2] onclick="pieChanger(this.value)"> 
+            	<label style="font-size: 12px;" for=names[2]>Average Best-fit Working Age Population</label></td>
+            <td><input type="radio" name="group1" value=names[3] onclick="pieChanger(this.value)"> 
+            	<label style="font-size: 12px;" for=names[3]>Overall Average SIMD 2012 Score</label></td>
             <td><input type="radio" name="group1" value=names[4] onclick="pieChanger(this.value)"> 
             	<label style="font-size: 12px;" for=names[4]>Overall Average SIMD 2012 Rank</label></td> 
             <td><input type="radio" name="group1" value=names[5] onclick="pieChanger(this.value)"> 
@@ -191,56 +189,98 @@ return false;
 
 
 <script>
+function pieChanger(thing) {
+    pieData = thing;
+}
+</script>
 
-var width = 960,
-    height = 500,
-    radius = Math.min(width, height) / 2;
+<script>
 
-var color = d3.scale.category20();
+
+var data;
+var max = 0;
+var total = 0;
+var width = 300,
+    height = 300,
+    radius = Math.min(width, height) / 2,
+    innerRadius = 0.3 * radius;
 
 var pie = d3.layout.pie()
-    .value(function(d) { return d.apples; })
-    .sort(null);
+    .sort(null)
+    .value(function(d) { return d["Average Best-fit Working Age Population** (men 16-64, women 16-60 SAPE 2010)"]; });
+
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([0, 0])
+  .html(function(d) {
+    return d.data.label + ": <span style='color:orangered'>" + d.data.score + "</span>";
+  });
 
 var arc = d3.svg.arc()
-    .innerRadius(radius - 100)
-    .outerRadius(radius - 20);
+  .innerRadius(innerRadius)
+  .outerRadius(function (d) { 
+    var value= d.data.score/max;
+    return (radius - innerRadius) * (d.data.score / max) + innerRadius;  
+  });
 
-var svg = d3.select("body").append("svg")
+var outlineArc = d3.svg.arc()
+        .innerRadius(innerRadius)
+        .outerRadius(radius);
+
+var color = d3.scale.ordinal()
+    .range(["#9E0041", "#C32F4B", "#E1514B", "#F47245", "#FB9F59", "#FEC574", "#FAE38C", "#EAF195","#C7E89E","#9CD6A4","#6CC4A4","#4D9DB4","#4776B4","#5E4EA1"]);
+
+var svg = d3.select("#aesterplot").append("svg")
     .attr("width", width)
     .attr("height", height)
-  .append("g")
+    .append("g")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-d3.tsv("data.tsv", type, function(error, data) {
-  var path = svg.datum(data).selectAll("path")
-      .data(pie)
+svg.call(tip);
+
+d3.json("areas.json", function(json) {
+  data = json;
+  data.forEach(function(d) {
+    d.score  = +d["Average Best-fit Working Age Population** (men 16-64, women 16-60 SAPE 2010)"];
+    d.label  =  d["Local Authority Name"];
+    
+    if (d.score>max){
+      max= +d.score;
+    }
+  });
+
+  
+  var path = svg.selectAll(".solidArc")
+      .data(pie(data))
     .enter().append("path")
-      .attr("fill", function(d, i) { return color(i); })
-      .attr("d", arc);
+      .attr("fill", function(d) { return color(d.data["Average Best-fit Working Age Population** (men 16-64, women 16-60 SAPE 2010)"])})
+      .attr("class", "solidArc")
+      .attr("stroke", "gray")
+      .attr("d", arc)
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide);
 
-  d3.selectAll("input")
-      .on("change", change);
+  var outerPath = svg.selectAll(".outlineArc")
+      .data(pie(data))
+    .enter().append("path")
+      .attr("fill", "none")
+      .attr("stroke", "gray")
+      .attr("class", "outlineArc")
+      .attr("d", outlineArc);  
 
-  var timeout = setTimeout(function() {
-    d3.select("input[value=\"oranges\"]").property("checked", true).each(change);
-  }, 2000);
 
-  function change() {
-    var value = this.value;
-    clearTimeout(timeout);
-    pie.value(function(d) { return d[value]; }); // change the value function
-    path = path.data(pie); // compute the new angles
-    path.attr("d", arc); // redraw the arcs
-  }
+  // calculate the weighted mean score
+  total = d3.sum(data, function(d) { return d.score; });
+  var score = total/32;
+
+
+  svg.append("svg:text")
+    .attr("class", "aster-score")
+    .attr("dy", ".35em")
+    .attr("text-anchor", "middle") // text-align: right
+    .text(Math.round(score));
+
 });
-
-function type(d) {
-  d.apples = +d.apples;
-  d.oranges = +d.oranges;
-  return d;
-}
-
 </script></td>
 </tr></table>
 
