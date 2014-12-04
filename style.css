@@ -62,3 +62,38 @@ body {
   top: 100%;
   left: 0;
 }
+
+.popup_title { 
+	font-family: Raleway;
+	font-size: 22px;
+	text-align: center;
+	line-height: 150%;
+}
+
+.popup_block{
+    display:none;
+    background:#fff;
+    padding:20px;
+    border:1px solid #eee;  /* if you want a solid white pop-up, delete this */
+    float:left;
+    position:fixed;
+    top:50%;left:50%;
+    z-index: 99999;
+    -webkit-box-shadow: 0px 0px 20px #000; /* delete for solid white */
+    -moz-box-shadow: 0px 0px 20px #000; /* delete for solid white */
+    box-shadow: 0px 0px 20px #000; /* delete for solid white */
+}
+ 
+*html #fade {position: absolute;}
+*html .popup_block {position: absolute;}
+#fade {
+    display:none;
+    position:fixed;
+    left:0px;
+    top:0px;
+    width:100%;
+    height:100%;
+    z-index:9999;
+    background:#000; /* change to #fff for solid white */
+    opacity:0.5; /* change to opacity:1; */
+}

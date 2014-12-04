@@ -5,12 +5,17 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+<link href='http://fonts.googleapis.com/css?family=Raleway:400,700' rel='stylesheet' type='text/css'>
 <script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="datamaps.none.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<script type ="text/javascript" src="popup.js"></script>
+<script type="text/javascript" src="aster.js"></script>
 <script>
 var data; 
 var names;
-
-
 
 d3.json("areas.json", function(json) {
     data = json;
@@ -24,81 +29,47 @@ d3.json("areas.json", function(json) {
 
 </script>
 
-<link href='http://fonts.googleapis.com/css?family=Raleway:400,700' rel='stylesheet' type='text/css'>
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="http://d3js.org/topojson.v1.min.js"></script>
-<script src="datamaps.none.min.js"></script>
-<style type='text/css'>
 
-
-.popup_title { 
-	font-family: Raleway;
-	font-size: 22px;
-	text-align: center;
-	line-height: 150%;
-}
-
-.popup_block{
-    display:none;
-    background:#fff;
-    padding:20px;
-    border:1px solid #eee;  /* if you want a solid white pop-up, delete this */
-    float:left;
-    position:fixed;
-    top:50%;left:50%;
-    z-index: 99999;
-    -webkit-box-shadow: 0px 0px 20px #000; /* delete for solid white */
-    -moz-box-shadow: 0px 0px 20px #000; /* delete for solid white */
-    box-shadow: 0px 0px 20px #000; /* delete for solid white */
-}
- 
-*html #fade {position: absolute;}
-*html .popup_block {position: absolute;}
-#fade {
-    display:none;
-    position:fixed;
-    left:0px;
-    top:0px;
-    width:100%;
-    height:100%;
-    z-index:9999;
-    background:#000; /* change to #fff for solid white */
-    opacity:0.5; /* change to opacity:1; */
-}
-</style>
-<script type="text/javascript"
-src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
 <script>
-$(document).ready(function() {
-//
-$('a.poplight[href^=#]').click(function() {
-var popID = $(this).attr('rel'); //Get Popup Name
-var popURL = $(this).attr('href'); //Get Popup href to define size
-var query= popURL.split('?');
-var dim= query[1].split('&');
-var popWidth = dim[0].split('=')[1]; //Gets the first query string value
-$('#' + popID).fadeIn().css({ 'width': Number( popWidth ) }).prepend('<a href="#" class="close"></a>');
-var popMargTop = ($('#' + popID).height() + 80) / 2;
-var popMargLeft = ($('#' + popID).width() + 80) / 2;
-//Apply Margin to Popup
-$('#' + popID).css({
-'margin-top' : -popMargTop,
-'margin-left' : -popMargLeft
+//var order = ['fill1', 'fill2', 'fill3', 'fill4', 'fill5', 'fill6', 'fill7', 'fill8', 'fill9', 'fill10', 'fill11', 'fill12', 'fill13', 'fill14', 'fill1', 'fill1', 'fill1', 'fill18', 'fill19', 'fill20', 'fill21', 'fill22', 'fill23', 'fill24', 'fill25', 'fill26', 'fill27', 'fill28', 'fill29', 'fill30', 'fill31', 'fill32'];
+var order = new Array(32);
+  for (var i = 0; i < 32; i++) {
+    order[i] = new Array(32);
+  }
+
+d3.json("areas.json", function(json) {
+		data = json;
+		names = d3.keys(data[0]);
+		for (var i = 0; i < 32; i++) {
+			for (var j = 0; j < data.length; j++) {           
+				order[i][j] = "fill" + data[j][names[i]];
+			};
+		};
 });
-$('body').append('<div id="fade"></div>');
-$('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn(); //Fade in the fade layer - .css({'filter' : 'alpha(opacity=80)'})
-return false;
-});
-$('a.close, #fade').live('click', function() {
-$('#fade , .popup_block').fadeOut(function() {
-$('#fade, a.close').remove(); //fade them both out
-});
-return false;
-});
-});
+
+function recolour(id) {
+		
+    map.updateChoropleth({
+	
+	    'abd': { fillKey: order[id][0] }, 'abs': { fillKey: order[id][1] }, 'ang': { fillKey: order[id][2] },
+		'arg': { fillKey: order[id][3] }, 'cla': { fillKey: order[id][4] }, 'com': { fillKey: order[id][5] },
+		'dum': { fillKey: order[id][6] }, 'dun': { fillKey: order[id][7] }, 'eay': { fillKey: order[id][8] },
+		'edu': { fillKey: order[id][9] }, 'elt': { fillKey: order[id][10] }, 'erf': { fillKey: order[id][11] },
+		'edn': { fillKey: order[id][12] }, 'flk': { fillKey: order[id][13] }, 'fif': { fillKey: order[id][14] },
+		'gla': { fillKey: order[id][15] }, 'hgh': { fillKey: order[id][16] }, 'inv': { fillKey: order[id][17] },
+		'mid': { fillKey: order[id][18]}, 'mry': { fillKey: order[id][19] }, 'nay': { fillKey: order[id][20] },
+		'nln': { fillKey: order[id][21] }, 'ork': { fillKey: order[id][22] }, 'per': { fillKey: order[id][23] },
+		'ren': { fillKey: order[id][24] }, 'brd': { fillKey: order[id][25] }, 'sht': { fillKey: order[id][26] },
+		'say': { fillKey: order[id][27] }, 'sln': { fillKey: order[id][28] }, 'str': { fillKey: order[id][29] },
+		'wdu': { fillKey: order[id][30] }, 'wlt': { fillKey: order[id][31] },
+	
+	});
+	
+}
+
 </script>
 
-<a href="#?w=600" rel="box1" class="poplight" id="fadebox" style="display: none;">LINK TITLE</a>
+<a href="#?w=600" rel="box1" class="poplight" id="fadebox" style="display: none;"></a>
 
 <table><tr><td>
 <div id="container" style="position: relative; width: 500px; height: 800px;"></div>
@@ -106,78 +77,78 @@ return false;
 <form name="form">
 	<table cellspacing="2">
 		<tr>
-            <!-- <td><input type="radio" name="group1" value=names[0] > 
-            //	<label style="font-size: 12px;" for=names[0]>Local Authority Name</label></td> -->
-            <td><input type="radio" name="group1" value=1 onclick="pieChanger(1)" > 
+            <!-- <td><input type="radio" name="group1" value=0 > 
+            //	<label style="font-size: 12px;" for=0>Local Authority Name</label></td> -->
+            <td><input type="radio" name="group1" value=1 onclick="recolour(this.value)" > 
             	<label style="font-size: 12px;" for=1>Total Population</label> </td>
-            <td><input type="radio" name="group1" value=2 onclick="pieChanger(2)"> 
+            <td><input type="radio" name="group1" value=2 onclick="recolour(this.value)"> 
             	<label style="font-size: 12px;" for=2>Average Best-fit Working Age Population</label></td>
-            <td><input type="radio" name="group1" value=3 onclick="pieChanger(3)"> 
+            <td><input type="radio" name="group1" value=3 onclick="recolour(this.value)"> 
             	<label style="font-size: 12px;" for=3>Overall Average SIMD 2012 Score</label></td>
-            <td><input type="radio" name="group1" value=names[4] onclick="pieChanger(4)"> 
-            	<label style="font-size: 12px;" for=names[4]>Overall Average SIMD 2012 Rank</label></td> 
-            <td><input type="radio" name="group1" value=names[5] onclick="pieChanger(this.value)"> 
-            	<label style="font-size: 12px;" for=names[5]>Education,Skills and Training score</label></td>
-            <td><input type="radio" name="group1" value=names[6] onclick="pieChanger(this.value)"> 
-                <label style="font-size: 12px;" for=names[6]>Education, Skills and Training rank</label></td>
+            <td><input type="radio" name="group1" value=4 onclick="recolour(this.value)"> 
+            	<label style="font-size: 12px;" for=4>Overall Average SIMD 2012 Rank</label></td> 
+            <td><input type="radio" name="group1" value=5 onclick="recolour(this.value)"> 
+            	<label style="font-size: 12px;" for=5>Education,Skills and Training score</label></td>
+            <td><input type="radio" name="group1" value=6 onclick="recolour(this.value)"> 
+                <label style="font-size: 12px;" for=6>Education, Skills and Training rank</label></td>
         </tr>
         <tr>    
-            <td><input type="radio" name="group1" value=names[7] onclick="pieChanger(this.value)"> 
-            	<label style="font-size: 12px;" for=names[7]>Working age people with no qualifications</label></td> 
-            <td><input type="radio" name="group1" value=names[8] onclick="pieChanger(this.value)"> 
-            	<label style="font-size: 12px;" for=names[8]>People aged 16-19 unemployed/uneducated</label></td>
-            <td><input type="radio" name="group1" value=names[9] onclick="pieChanger(this.value)"> 
-            	<label style="font-size: 12px;" for=names[9]>Avg People aged 17- 21 entering Uni/College</label></td>
-            <td><input type="radio" name="group1" value=names[10] onclick="pieChanger(this.value)"> 
-                <label style="font-size: 12px;" for=names[10]>Average pupil Performance on SQA at Stage 4</label> </td>
-            <td><input type="radio" name="group1" value=names[11] onclick="pieChanger(this.value)"> 
-                <label style="font-size: 12px;" for=names[11]>Average School Pupil Absences</label></td>
-            <td><input type="radio" name="group1" value=names[12] onclick="pieChanger(this.value)"> 
-                <label style="font-size: 12px;" for=names[12]>Housing domain rank </label></td>
+            <td><input type="radio" name="group1" value=7 onclick="recolour(this.value)"> 
+            	<label style="font-size: 12px;" for=7>Working age people with no qualifications</label></td> 
+            <td><input type="radio" name="group1" value=8 onclick="recolour(this.value)"> 
+            	<label style="font-size: 12px;" for=8>People aged 16-19 unemployed/uneducated</label></td>
+            <td><input type="radio" name="group1" value=9 onclick="recolour(this.value)"> 
+            	<label style="font-size: 12px;" for=9>Avg People aged 17- 21 entering Uni/College</label></td>
+            <td><input type="radio" name="group1" value=10 onclick="recolour(this.value)"> 
+                <label style="font-size: 12px;" for=10>Average pupil Performance on SQA at Stage 4</label> </td>
+            <td><input type="radio" name="group1" value=11 onclick="recolour(this.value)"> 
+                <label style="font-size: 12px;" for=11>Average School Pupil Absences</label></td>
+            <td><input type="radio" name="group1" value=12 onclick="recolour(this.value)"> 
+                <label style="font-size: 12px;" for=12>Housing domain rank </label></td>
         </tr>
         <tr>
-            <td><input type="radio" name="group1" value=names[13] onclick="pieChanger(this.value)"> 
-            	<label style="font-size: 12px;" for=names[13]>Average housing domain score</label></td> 
-            <td><input type="radio" name="group1" value=names[14] onclick="pieChanger(this.value)"> 
-            	<label style="font-size: 12px;" for=names[14]>Household Population </label></td>
-            <td><input type="radio" name="group1" value=names[15] onclick="pieChanger(this.value)"> 
-            	<label style="font-size: 12px;" for=names[15]> Avg % of people in households without central heating</label></td>
-            <td><input type="radio" name="group1" value=names[16] onclick="pieChanger(this.value)">  
-            	<label style="font-size: 12px;" for=names[16]>Avg % of people in overcrowded homes </label></td>
-            <td><input type="radio" name="group1" value=names[18] onclick="pieChanger(this.value)">  
-                <label style="font-size: 12px;" for=names[18]> SIMD Crime 2012 rank</label></td>
-            <td><input type="radio" name="group1" value=names[19] onclick="pieChanger(this.value)">  
-                <label style="font-size: 12px;" for=names[19]> SIMD Crime 2012 count</label></td>
-           <!-- <td><input type="radio" name="group1" value=names[17] >  
-            	<label style="font-size: 12px;" for=names[17]>Police Force Area</label></td> -->
+            <td><input type="radio" name="group1" value=13 onclick="recolour(this.value)"> 
+            	<label style="font-size: 12px;" for=13>Average housing domain score</label></td> 
+            <td><input type="radio" name="group1" value=14 onclick="recolour(this.value)"> 
+            	<label style="font-size: 12px;" for=14>Household Population </label></td>
+            <td><input type="radio" name="group1" value=15 onclick="recolour(this.value)"> 
+            	<label style="font-size: 12px;" for=15> Avg % of people in households without central heating</label></td>
+            <td><input type="radio" name="group1" value=16 onclick="recolour(this.value)">  
+            	<label style="font-size: 12px;" for=16>Avg % of people in overcrowded homes </label></td>
+            <td><input type="radio" name="group1" value=18 onclick="recolour(this.value)">  
+                <label style="font-size: 12px;" for=18> SIMD Crime 2012 rank</label></td>
+            <td><input type="radio" name="group1" value=19 onclick="recolour(this.value)">  
+                <label style="font-size: 12px;" for=19> SIMD Crime 2012 count</label></td>
+           <!-- <td><input type="radio" name="group1" value=17 >  
+            	<label style="font-size: 12px;" for=17>Police Force Area</label></td> -->
         </tr>
         <tr>
-            <td><input type="radio" name="group1" value=names[20] onclick="pieChanger(this.value)">  
-            	<label style="font-size: 12px;" for=names[20]>SIMD Average Crimes per 10,000 tot.pop.</label></td>
-            <td><input type="radio" name="group1" value=names[21] onclick="pieChanger(this.value)">  
-            	<label style="font-size: 12px;" for=names[21]>Electorate Number</label></td>
-            <td><input type="radio" name="group1" value=names[22] onclick="pieChanger(this.value)">  
-            	<label style="font-size: 12px;" for=names[22]>Number of Votes </label></td>
-            <td><input type="radio" name="group1" value=names[23] onclick="pieChanger(this.value)">  
-            	<label style="font-size: 12px;" for=names[23]>Yes Votes</label></td>
-            <td><input type="radio" name="group1" value=names[24] onclick="pieChanger(this.value)">  
-                <label style="font-size: 12px;" for=names[24]> No Votes</label></td>
-            <td><input type="radio" name="group1" value=names[25] onclick="pieChanger(this.value)">  
-                <label style="font-size: 12px;" for=names[25]>Rejected Papers </label></td>
+            <td><input type="radio" name="group1" value=20 onclick="recolour(this.value)">  
+            	<label style="font-size: 12px;" for=20>SIMD Average Crimes per 10,000 tot.pop.</label></td>
+            <td><input type="radio" name="group1" value=21 onclick="recolour(this.value)">  
+            	<label style="font-size: 12px;" for=21>Electorate Number</label></td>
+            <td><input type="radio" name="group1" value=22 onclick="recolour(this.value)">  
+            	<label style="font-size: 12px;" for=22>Number of Votes </label></td>
+            <td><input type="radio" name="group1" value=23 onclick="recolour(this.value)">  
+            	<label style="font-size: 12px;" for=23>Yes Votes</label></td>
+            <td><input type="radio" name="group1" value=24 onclick="recolour(this.value)">  
+                <label style="font-size: 12px;" for=24> No Votes</label></td>
+            <td><input type="radio" name="group1" value=25 onclick="recolour(this.value)">  
+                <label style="font-size: 12px;" for=25>Rejected Papers </label></td>
         </tr>
         <tr>
-            <td><input type="radio" name="group1" value=names[26] onclick="pieChanger(this.value)">  
-            	<label style="font-size: 12px;" for=names[26]>Estimated population (2013)</label></td>
-            <td><input type="radio" name="group1" value=names[27] onclick="pieChanger(this.value)">  
-            	<label style="font-size: 12px;" for=names[27]>Estimated Males (2013)</label></td>
-            <td><input type="radio" name="group1" value=names[28] onclick="pieChanger(this.value)">  
-            	<label style="font-size: 12px;" for=names[28]>Estimated Females (2013)</label></td>
-            <td><input type="radio" name="group1" value=names[29] onclick="pieChanger(this.value)">  
-            	<label style="font-size: 12px;" for=names[29]>"Area (square km)</label></td>
-        	<td><input type="radio" name="group1" value=names[30] onclick="pieChanger(this.value)">  
-            	<label style="font-size: 12px;" for=names[30]>Population density</label></td>
-            <td><input type="radio" name="group1" value=names[31] onclick="pieChanger(this.value)">  
-            	<label style="font-size: 12px;" for=names[31]>Council expenditure per capita (£)</label></td>
+            <td><input type="radio" name="group1" value=26 onclick="recolour(this.value)">  
+            	<label style="font-size: 12px;" for=26>Estimated population (2013)</label></td>
+            <td><input type="radio" name="group1" value=27 onclick="recolour(this.value)">  
+            	<label style="font-size: 12px;" for=27>Estimated Males (2013)</label></td>
+            <td><input type="radio" name="group1" value=28 onclick="recolour(this.value)">  
+            	<label style="font-size: 12px;" for=28>Estimated Females (2013)</label></td>
+            <td><input type="radio" name="group1" value=29 onclick="recolour(this.value)">  
+            	<label style="font-size: 12px;" for=29>"Area (square km)</label></td>
+        	<td><input type="radio" name="group1" value=30 onclick="recolour(this.value)">  
+            	<label style="font-size: 12px;" for=30>Population density</label></td>
+            <td><input type="radio" name="group1" value=31 onclick="recolour(this.value)">  
+            	<label style="font-size: 12px;" for=31>Council expenditure per capita (£)</label></td>
         </tr>
 </form>
 
@@ -186,124 +157,12 @@ return false;
 <tr>
 <td></td>
 <td><div id="aesterplot"></div>
-
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-
-
-<script>
-
-
-var data;
-var max = 0;
-var total = 0;
-var width = 300,
-    height = 300,
-    radius = Math.min(width, height) / 2,
-    innerRadius = 0.3 * radius;
-
-
-
-d3.json("areas.json", function(json) {
-    pieData=1;
-    data = json;
-    data.forEach(function(d) {
-      d.score  = +d["Total Population (SAPE 2010)"];
-      d.label  =  d["Local Authority Name"];
-      console.log(d.score);
-    
-      if (d.score>max){
-        max= +d.score;
-    };
-  });
-});
-
-
-
-var pie = d3.layout.pie()
-    .sort(null)
-    .value(function(d) { return d["Total Population (SAPE 2010)"]; });
-
-var tip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([0, 0])
-  .html(function(d) {
-    return d.data.label + ": <span style='color:orangered'>" + d.data.score + "</span>";
-  });
-
-var arc = d3.svg.arc()
-  .innerRadius(innerRadius)
-  .outerRadius(function (d) { 
-    var value= d.data.score/max;
-    return (radius - innerRadius) * (d.data.score / max) + innerRadius;  
-  });
-
-var outlineArc = d3.svg.arc()
-        .innerRadius(innerRadius)
-        .outerRadius(radius);
-
-var color = d3.scale.ordinal()
-    .range(["#9E0041", "#C32F4B", "#E1514B", "#F47245", "#FB9F59", "#FEC574", "#FAE38C", "#EAF195","#C7E89E","#9CD6A4","#6CC4A4","#4D9DB4","#4776B4","#5E4EA1"]);
-
-var svg = d3.select("#aesterplot").append("svg")
-    .attr("width", width)
-    .attr("height", height)
-    .append("g")
-    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-svg.call(tip);
-
-d3.json("areas.json", function(json) {
-  data = json;
-  data.forEach(function(d) {
-    d.score  = +d["Total Population (SAPE 2010)"];
-    d.label  =  d["Local Authority Name"];
-    
-    if (d.score>max){
-      max= +d.score;
-    }
-  });
-
-  
-  var path = svg.selectAll(".solidArc")
-      .data(pie(data))
-    .enter().append("path")
-      .attr("fill", function(d) { return color(d.data["Total Population (SAPE 2010)"])})
-      .attr("class", "solidArc")
-      .attr("stroke", "gray")
-      .attr("d", arc)
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide);
-
-  var outerPath = svg.selectAll(".outlineArc")
-      .data(pie(data))
-    .enter().append("path")
-      .attr("fill", "none")
-      .attr("stroke", "gray")
-      .attr("class", "outlineArc")
-      .attr("d", outlineArc);  
-
-
-  // calculate the weighted mean score
-  total = d3.sum(data, function(d) { return d.score; });
-  var score = total/32;
-
-
-  svg.append("svg:text")
-    .attr("class", "aster-score")
-    .attr("dy", ".35em")
-    .attr("text-anchor", "middle") // text-align: right
-    .text(Math.round(score));
-
-});
-
-</script></td>
+</td>
 </tr></table>
 
 
 
 <script>
-
     var map = new Datamap({
       element: document.getElementById('container'),
       geographyConfig: {
@@ -317,38 +176,17 @@ d3.json("areas.json", function(json) {
 	  
 	  fills: {
           defaultFill: '#000',
-          fill1: '#a83b42',
-		  fill2: '#a63c47',
-		  fill3: '#a43d4d',
-		  fill4: '#a23f52',
-		  fill5: '#a04058',
-		  fill6: '#9e425d',
-		  fill7: '#9C4363',
-		  fill8: '#9A4569',
-		  fill9: '#98466E',
-		  fill10: '#964874',
-		  fill11: '#944979',
-		  fill12: '#924A7F',
-		  fill13: '#904C84',
-		  fill14: '#8E4D8A',
-		  fill15: '#8C4F90',
-		  fill16: '#8A5095',
-		  fill17: '#88529B',
-		  fill18: '#8653A0',
-		  fill19: '#8455A6',
-		  fill20: '#8256AC',
-		  fill21: '#8058B1',
-		  fill22: '#7E59B7',
-		  fill23: '#7C5ABC',
-		  fill24: '#7A5CC2',
-		  fill25: '#785DC7',
-		  fill26: '#765FCD',
-		  fill27: '#7460D3',
-		  fill28: '#7262D8',
-		  fill29: '#7063DE',
-		  fill30: '#6E65E3', 
-		  fill31: '#6C66E9',
-		  fill32: '#6A68EF',
+          fill1: '#a83b42',  fill2: '#a63c47',   fill3: '#a43d4d',
+		  fill4: '#a23f52',  fill5: '#a04058',   fill6: '#9e425d',
+		  fill7: '#9C4363',   fill8: '#9A4569',	  fill9: '#98466E',
+		  fill10: '#964874',     fill11: '#944979',    fill12: '#924A7F',
+		  fill13: '#904C84',     fill14: '#8E4D8A', 	  fill15: '#8C4F90',
+		  fill16: '#8A5095',	  fill17: '#88529B',	  fill18: '#8653A0',
+		  fill19: '#8455A6',	  fill20: '#8256AC',	  fill21: '#8058B1',
+		  fill22: '#7E59B7',	  fill23: '#7C5ABC',	  fill24: '#7A5CC2',
+		  fill25: '#785DC7',	  fill26: '#765FCD',	  fill27: '#7460D3',
+		  fill28: '#7262D8',	  fill29: '#7063DE',	  fill30: '#6E65E3', 
+		  fill31: '#6C66E9',	  fill32: '#6A68EF',
       },
 	  
 	  data: {
@@ -386,12 +224,7 @@ d3.json("areas.json", function(json) {
         return {path: path, projection: projection};
         }
     });
-	
 </script>
 </body>
-<div id="box1" class="popup_block">
-CONTENT 
-CONTENT 
-CONTENT
-</div>
+<div id="box1" class="popup_block"></div>
 </html>
