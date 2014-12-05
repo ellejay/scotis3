@@ -11,8 +11,8 @@
 <style>h2 { font-family: Raleway; }</style>
 
 	<div class="container">
-		<h2>Detailed Rank Data
-		<p id="demo"></p></h2>
+		<center><div style="font-family: Raleway; font-size: 18px;">Detailed Rank Data</div>
+		<div style="font-family: Raleway; font-size: 14px;"><p id="demo"></p></div></center>
 		<div id="chart"></div>
 	</div>
 	<script>
@@ -58,7 +58,7 @@ d3.json("areas.json", function(error, data){
 	//Define colours for each bar
 	var colours = d3.scale.linear()
 	.domain([0, valueArray.length*.33, valueArray.length*.66, valueArray.length])
-	.range(['#B58929','#C61C6F','#268BD2','#85992C']);
+	.range(['#9E0041','#4776B4','#EAF195','#FAE38C']);
 	
 	//Define the scale of the Y axis
 	var yScale = d3.scale.linear()
@@ -80,7 +80,6 @@ d3.json("areas.json", function(error, data){
 		.attr('width', width + margin.left + margin.right)
 		.attr('height', height + margin.top + margin.bottom)
 		.attr('transform', 'translate(' + margin.left +',  '+margin.top +')')
-		.style('background', '#C9D7D6')
 		.selectAll('rect').data(valueArray)							//Creates the bars
 		.enter().append('rect')
 			.style('fill', function(d,i){
