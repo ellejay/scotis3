@@ -6,7 +6,7 @@ var total = 0;
 var width = 300,
     height = 300,
     radius = Math.min(width, height) / 2,
-    innerRadius = 0.3 * radius;
+    innerRadius = 0.35 * radius;
 
 
 
@@ -16,7 +16,6 @@ d3.json("areas.json", function(json) {
     data.forEach(function(d) {
       d.score  = +d["Total Population (SAPE 2010)"];
       d.label  =  d["Local Authority Name"];
-      console.log(d.score);
     
       if (d.score>max){
         max= +d.score;
@@ -91,15 +90,17 @@ d3.json("areas.json", function(json) {
 
 
   // calculate the weighted mean score
-  total = d3.sum(data, function(d) { return d.score; });
-  var score = total/32;
+  //total = d3.sum(data, function(d) { return d.score; });
+  //var score = total/32;
 
 
-  svg.append("svg:text")
-    .attr("class", "aster-score")
-    .attr("dy", ".35em")
-    .attr("text-anchor", "middle") // text-align: right
-    .text(Math.round(score));
+  svg.append("text")
+  .attr("dy", ".35em")
+  .attr("font-size","13px")
+  .style("text-anchor", "middle")
+  .attr("class", "inside")
+  .text(function(d) { return 'Total Population'; })
+  .style("font-weight","bold");
 
 });
 
