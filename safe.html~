@@ -319,7 +319,7 @@ function recolour(id) {
             <li><input type="radio" name="group1" id=28 value=28 onclick="recolour(this.value)">  
             	<label  for=28>Estimated Females (2013)</label></li>
             <li><input type="radio" name="group1" id=29 value=29 onclick="recolour(this.value)">  
-            	<label  for=29>Area (square km)</label></li>
+            	<label  for=29>"Area (square km)</label></li>
         	<li><input type="radio" name="group1" id=30 value=30 onclick="recolour(this.value)">  
             	<label  for=30>Population density</label></li>
             <li><input type="radio" name="group1" id=31 value=31 onclick="recolour(this.value)">  
@@ -360,17 +360,17 @@ function recolour(id) {
       },
 	  
 	  data: {
-		'abd': { fillKey: '4' }, 'abs': { fillKey: '2' }, 'ang': { fillKey: '19' },
-		'arg': { fillKey: '25' }, 'cla': { fillKey: '29' }, 'com': { fillKey: '30' },
-		'dum': { fillKey: '12' }, 'dun': { fillKey: '14' }, 'eay': { fillKey: '16' },
-		'edu': { fillKey: '20' }, 'elt': { fillKey: '21' }, 'erf': { fillKey: '24' },
-		'edn': { fillKey: '3' }, 'flk': { fillKey: '11' }, 'fif': { fillKey: '5' },
-		'gla': { fillKey: '1' }, 'hgh': { fillKey: '8' }, 'inv': { fillKey: '28' },
-		'mid': { fillKey: '27' }, 'mry': { fillKey: '26' }, 'nay': { fillKey: '15' },
-		'nln': { fillKey: '6' }, 'ork': { fillKey: '32' }, 'per': { fillKey: '13' },
-		'ren': { fillKey: '10' }, 'brd': { fillKey: '17' }, 'sht': { fillKey: '31' },
-		'say': { fillKey: '18' }, 'sln': { fillKey: '7' }, 'str': { fillKey: '23' },
-		'wdu': { fillKey: '22' }, 'wlt': { fillKey: '9' },
+		'abd': { fillKey: '1' }, 'abs': { fillKey: '2' }, 'ang': { fillKey: '3' },
+		'arg': { fillKey: '4' }, 'cla': { fillKey: '5' }, 'com': { fillKey: '6' },
+		'dum': { fillKey: '7' }, 'dun': { fillKey: '8' }, 'eay': { fillKey: '9' },
+		'edu': { fillKey: '10' }, 'elt': { fillKey: '11' }, 'erf': { fillKey: '12' },
+		'edn': { fillKey: '13' }, 'flk': { fillKey: '14' }, 'fif': { fillKey: '15' },
+		'gla': { fillKey: '16' }, 'hgh': { fillKey: '17' }, 'inv': { fillKey: '18' },
+		'mid': { fillKey: '19' }, 'mry': { fillKey: '20' }, 'nay': { fillKey: '21' },
+		'nln': { fillKey: '22' }, 'ork': { fillKey: '23' }, 'per': { fillKey: '24' },
+		'ren': { fillKey: '25' }, 'brd': { fillKey: '26' }, 'sht': { fillKey: '27' },
+		'say': { fillKey: '28' }, 'sln': { fillKey: '29' }, 'str': { fillKey: '30' },
+		'wdu': { fillKey: '31' }, 'wlt': { fillKey: '32' },
 	  },
 	  
 	  done: function(datamap) {
@@ -394,7 +394,7 @@ function recolour(id) {
     });
 	
 	function popitup(name) {
-		newwindow=window.open('scotlandBarChart.html',name,'height=500,width=700');
+		newwindow=window.open('scotlandBarChart.html',name,'height=600,width=700');
 		if (window.focus) {newwindow.focus()}
 			return false;
 	}
