@@ -3,8 +3,8 @@ $(document).ready(function() {
 var data;
 var max = 0;
 var total = 0;
-var width = 300,
-    height = 300,
+var width = 415,
+    height = 415,
     radius = Math.min(width, height) / 2,
     innerRadius = 0.35 * radius;
 

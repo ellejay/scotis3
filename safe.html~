@@ -71,8 +71,8 @@ var data;
 var fldname = names[id];
 var max = 0;
 var total = 0;
-var width = 300,
-    height = 300,
+var width = 500,
+    height = 500,
     radius = Math.min(width, height) / 2,
     innerRadius = 0.35 * radius;
 
@@ -256,11 +256,11 @@ function recolour(id) {
 <a href="#?w=600" rel="box1" class="poplight" id="fadebox" style="display: none;"></a>
 
 <table cellspacing="0" cellpadding="0" style="border-collapse: collapse;"><tr><td>
-<div id="container" style="position: relative; width: 450px; height: 600px;"></div>
-<div style="margin: 10px 80px;"><img src="http://i.imgur.com/Y8Yj8JW.png"></div>
+<div id="container" style="position: relative; width: 475px; height: 750px;"></div>
+<div style="margin: 10px 120px;"><img src="http://i.imgur.com/Y8Yj8JW.png"></div>
 </td><td valign="top" style="padding:0px">
 
-<center><div style="font-family: Raleway; font-size: 18px;">Scottish Data Visualiser</div></center>
+<center><div style="font-family: Raleway; font-size: 28px;">Scottish Data Visualiser</div></center>
 
 <div style="overflow: hidden;">
 <ul class="buttons">
@@ -319,7 +319,7 @@ function recolour(id) {
             <li><input type="radio" name="group1" id=28 value=28 onclick="recolour(this.value)">  
             	<label  for=28>Estimated Females (2013)</label></li>
             <li><input type="radio" name="group1" id=29 value=29 onclick="recolour(this.value)">  
-            	<label  for=29>"Area (square km)</label></li>
+            	<label  for=29>Area (square km)</label></li>
         	<li><input type="radio" name="group1" id=30 value=30 onclick="recolour(this.value)">  
             	<label  for=30>Population density</label></li>
             <li><input type="radio" name="group1" id=31 value=31 onclick="recolour(this.value)">  
@@ -360,17 +360,17 @@ function recolour(id) {
       },
 	  
 	  data: {
-		'abd': { fillKey: '1' }, 'abs': { fillKey: '2' }, 'ang': { fillKey: '3' },
-		'arg': { fillKey: '4' }, 'cla': { fillKey: '5' }, 'com': { fillKey: '6' },
-		'dum': { fillKey: '7' }, 'dun': { fillKey: '8' }, 'eay': { fillKey: '9' },
-		'edu': { fillKey: '10' }, 'elt': { fillKey: '11' }, 'erf': { fillKey: '12' },
-		'edn': { fillKey: '13' }, 'flk': { fillKey: '14' }, 'fif': { fillKey: '15' },
-		'gla': { fillKey: '16' }, 'hgh': { fillKey: '17' }, 'inv': { fillKey: '18' },
-		'mid': { fillKey: '19' }, 'mry': { fillKey: '20' }, 'nay': { fillKey: '21' },
-		'nln': { fillKey: '22' }, 'ork': { fillKey: '23' }, 'per': { fillKey: '24' },
-		'ren': { fillKey: '25' }, 'brd': { fillKey: '26' }, 'sht': { fillKey: '27' },
-		'say': { fillKey: '28' }, 'sln': { fillKey: '29' }, 'str': { fillKey: '30' },
-		'wdu': { fillKey: '31' }, 'wlt': { fillKey: '32' },
+		'abd': { fillKey: '4' }, 'abs': { fillKey: '2' }, 'ang': { fillKey: '19' },
+		'arg': { fillKey: '25' }, 'cla': { fillKey: '29' }, 'com': { fillKey: '30' },
+		'dum': { fillKey: '12' }, 'dun': { fillKey: '14' }, 'eay': { fillKey: '16' },
+		'edu': { fillKey: '20' }, 'elt': { fillKey: '21' }, 'erf': { fillKey: '24' },
+		'edn': { fillKey: '3' }, 'flk': { fillKey: '11' }, 'fif': { fillKey: '5' },
+		'gla': { fillKey: '1' }, 'hgh': { fillKey: '8' }, 'inv': { fillKey: '28' },
+		'mid': { fillKey: '27' }, 'mry': { fillKey: '26' }, 'nay': { fillKey: '15' },
+		'nln': { fillKey: '6' }, 'ork': { fillKey: '32' }, 'per': { fillKey: '13' },
+		'ren': { fillKey: '10' }, 'brd': { fillKey: '17' }, 'sht': { fillKey: '31' },
+		'say': { fillKey: '18' }, 'sln': { fillKey: '7' }, 'str': { fillKey: '23' },
+		'wdu': { fillKey: '22' }, 'wlt': { fillKey: '9' },
 	  },
 	  
 	  done: function(datamap) {
@@ -381,9 +381,9 @@ function recolour(id) {
 	  
       setProjection: function(element, options) {
          var projection = d3.geo.equirectangular()
-           .center([5, 11])
+           .center([4, 11])
            .rotate([4.4, 0])
-           .scale(900)
+           .scale(1100)
            .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
 
         var path = d3.geo.path()
@@ -394,7 +394,7 @@ function recolour(id) {
     });
 	
 	function popitup(name) {
-		newwindow=window.open('scotlandBarChart.html',name,'height=600,width=700');
+		newwindow=window.open('scotlandBarChart.html',name,'height=500,width=700');
 		if (window.focus) {newwindow.focus()}
 			return false;
 	}
