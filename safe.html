@@ -13,6 +13,43 @@
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script type ="text/javascript" src="popup.js"></script>
 <script type="text/javascript" src="aster.js"></script>
+
+<style> 
+input[name="group1"] {
+    display:none
+}
+
+[type=radio]:checked ~ label {
+  background-color: #e9e9e9;
+}
+
+.buttons {
+    list-style-type:none;
+    padding:0;
+}
+.buttons li {
+    float:left;
+    margin:0 5px 0 0;
+}
+.buttons label {
+	line-height: 200%;
+	font-family: Raleway; 
+	font-size: 11px; 
+  padding: 5px; 
+  border: 1px solid #cccfc9; 
+  margin-left: 3px; 
+  position: relative;
+  left: 1px; 
+  display: block;
+  margin: 3px 0px;
+  
+
+}
+.buttons label:hover {
+    background:#DDD;
+}</style>
+
+
 <script>
 var data; 
 var names;
@@ -25,7 +62,6 @@ d3.json("areas.json", function(json) {
         console.log(data[i]["Local Authority Name"]) ; 
         console.log(data[i][names[0]]);
 };
-});
 
 </script>
 
@@ -103,93 +139,81 @@ function recolour(id) {
 
 <a href="#?w=600" rel="box1" class="poplight" id="fadebox" style="display: none;"></a>
 
-<table><tr><td>
-<div id="container" style="position: relative; width: 500px; height: 800px;"></div>
-</td><td valign="top">
-<form name="form">
-	<table cellspacing="2">
-		<tr>
-            <!-- <td><input type="radio" name="group1" value=0 > 
-            //	<label style="font-size: 12px;" for=0>Local Authority Name</label></td> -->
-            <td><input type="radio" name="group1" value=1 onclick="recolour(this.value)" > 
-            	<label style="font-size: 12px;" for=1>Total Population</label> </td>
-            <td><input type="radio" name="group1" value=2 onclick="recolour(this.value)"> 
-            	<label style="font-size: 12px;" for=2>Average Best-fit Working Age Population</label></td>
-            <td><input type="radio" name="group1" value=3 onclick="recolour(this.value)"> 
-            	<label style="font-size: 12px;" for=3>Overall Average SIMD 2012 Score</label></td>
-            <td><input type="radio" name="group1" value=4 onclick="recolour(this.value)"> 
-            	<label style="font-size: 12px;" for=4>Overall Average SIMD 2012 Rank</label></td> 
-            <td><input type="radio" name="group1" value=5 onclick="recolour(this.value)"> 
-            	<label style="font-size: 12px;" for=5>Education,Skills and Training score</label></td>
-            <td><input type="radio" name="group1" value=6 onclick="recolour(this.value)"> 
-                <label style="font-size: 12px;" for=6>Education, Skills and Training rank</label></td>
-        </tr>
-        <tr>    
-            <td><input type="radio" name="group1" value=7 onclick="recolour(this.value)"> 
-            	<label style="font-size: 12px;" for=7>Working age people with no qualifications</label></td> 
-            <td><input type="radio" name="group1" value=8 onclick="recolour(this.value)"> 
-            	<label style="font-size: 12px;" for=8>People aged 16-19 unemployed/uneducated</label></td>
-            <td><input type="radio" name="group1" value=9 onclick="recolour(this.value)"> 
-            	<label style="font-size: 12px;" for=9>Avg People aged 17- 21 entering Uni/College</label></td>
-            <td><input type="radio" name="group1" value=10 onclick="recolour(this.value)"> 
-                <label style="font-size: 12px;" for=10>Average pupil Performance on SQA at Stage 4</label> </td>
-            <td><input type="radio" name="group1" value=11 onclick="recolour(this.value)"> 
-                <label style="font-size: 12px;" for=11>Average School Pupil Absences</label></td>
-            <td><input type="radio" name="group1" value=12 onclick="recolour(this.value)"> 
-                <label style="font-size: 12px;" for=12>Housing domain rank </label></td>
-        </tr>
-        <tr>
-            <td><input type="radio" name="group1" value=13 onclick="recolour(this.value)"> 
-            	<label style="font-size: 12px;" for=13>Average housing domain score</label></td> 
-            <td><input type="radio" name="group1" value=14 onclick="recolour(this.value)"> 
-            	<label style="font-size: 12px;" for=14>Household Population </label></td>
-            <td><input type="radio" name="group1" value=15 onclick="recolour(this.value)"> 
-            	<label style="font-size: 12px;" for=15> Avg % of people in households without central heating</label></td>
-            <td><input type="radio" name="group1" value=16 onclick="recolour(this.value)">  
-            	<label style="font-size: 12px;" for=16>Avg % of people in overcrowded homes </label></td>
-            <td><input type="radio" name="group1" value=18 onclick="recolour(this.value)">  
-                <label style="font-size: 12px;" for=18> SIMD Crime 2012 rank</label></td>
-            <td><input type="radio" name="group1" value=19 onclick="recolour(this.value)">  
-                <label style="font-size: 12px;" for=19> SIMD Crime 2012 count</label></td>
-           <!-- <td><input type="radio" name="group1" value=17 >  
-            	<label style="font-size: 12px;" for=17>Police Force Area</label></td> -->
-        </tr>
-        <tr>
-            <td><input type="radio" name="group1" value=20 onclick="recolour(this.value)">  
-            	<label style="font-size: 12px;" for=20>SIMD Average Crimes per 10,000 tot.pop.</label></td>
-            <td><input type="radio" name="group1" value=21 onclick="recolour(this.value)">  
-            	<label style="font-size: 12px;" for=21>Electorate Number</label></td>
-            <td><input type="radio" name="group1" value=22 onclick="recolour(this.value)">  
-            	<label style="font-size: 12px;" for=22>Number of Votes </label></td>
-            <td><input type="radio" name="group1" value=23 onclick="recolour(this.value)">  
-            	<label style="font-size: 12px;" for=23>Yes Votes</label></td>
-            <td><input type="radio" name="group1" value=24 onclick="recolour(this.value)">  
-                <label style="font-size: 12px;" for=24> No Votes</label></td>
-            <td><input type="radio" name="group1" value=25 onclick="recolour(this.value)">  
-                <label style="font-size: 12px;" for=25>Rejected Papers </label></td>
-        </tr>
-        <tr>
-            <td><input type="radio" name="group1" value=26 onclick="recolour(this.value)">  
-            	<label style="font-size: 12px;" for=26>Estimated population (2013)</label></td>
-            <td><input type="radio" name="group1" value=27 onclick="recolour(this.value)">  
-            	<label style="font-size: 12px;" for=27>Estimated Males (2013)</label></td>
-            <td><input type="radio" name="group1" value=28 onclick="recolour(this.value)">  
-            	<label style="font-size: 12px;" for=28>Estimated Females (2013)</label></td>
-            <td><input type="radio" name="group1" value=29 onclick="recolour(this.value)">  
-            	<label style="font-size: 12px;" for=29>"Area (square km)</label></td>
-        	<td><input type="radio" name="group1" value=30 onclick="recolour(this.value)">  
-            	<label style="font-size: 12px;" for=30>Population density</label></td>
-            <td><input type="radio" name="group1" value=31 onclick="recolour(this.value)">  
-            	<label style="font-size: 12px;" for=31>Council expenditure per capita (£)</label></td>
-        </tr>
-</form>
+<table cellspacing="0" cellpadding="0" style="border-collapse: collapse;"><tr><td>
+<div id="container" style="position: relative; width: 450px; height: 600px;"></div>
+<div style="margin: 10px 80px;"><img src="http://i.imgur.com/Y8Yj8JW.png"></div>
+</td><td valign="top" style="padding:0px">
 
-</td></tr>
+<center><div style="font-family: Raleway; font-size: 18px;">Scottish Data Visualiser</div></center>
 
-<tr>
-<td></td>
-<td><div id="aesterplot"></div>
-</td>
+<div style="overflow: hidden;">
+<ul class="buttons">
+            <li><input type="radio" name="group1" id=1 value=1 onclick="recolour(this.value)" > 
+            	<label  for=1>Total Population</label> </li>
+            <li><input type="radio" name="group1" id=2 value=2 onclick="recolour(this.value)"> 
+            	<label  for=2>Average Best-fit Working Age Population</label></li>
+            <li><input type="radio" name="group1" id=3  value=3 onclick="recolour(this.value)"> 
+            	<label  for=3>Overall Average SIMD 2012 Score</label></li>
+            <li><input type="radio" name="group1" id=4  value=4 onclick="recolour(this.value)"> 
+            	<label  for=4>Overall Average SIMD 2012 Rank</label></li> 
+            <li><input type="radio" name="group1" id=5 value=5 onclick="recolour(this.value)"> 
+            	<label  for=5>Education,Skills and Training score</label></li>
+            <li><input type="radio" name="group1" id=6 value=6 onclick="recolour(this.value)"> 
+                <label  for=6>Education, Skills and Training rank</label></li>   
+            <li><input type="radio" name="group1" id=7 value=7 onclick="recolour(this.value)"> 
+            	<label  for=7>Working age people with no qualifications</label></li> 
+            <li><input type="radio" name="group1" id = 8 value=8 onclick="recolour(this.value)"> 
+            	<label  for=8>People aged 16-19 unemployed/uneducated</label></li>
+            <li><input type="radio" name="group1" id= 9 value=9 onclick="recolour(this.value)"> 
+            	<label  for=9>Avg People aged 17- 21 entering Uni/College</label></li>
+            <li><input type="radio" name="group1" id=10 value=10 onclick="recolour(this.value)"> 
+                <label  for=10>Average pupil Performance on SQA at Stage 4</label> </li>
+            <li><input type="radio" name="group1" id=11 value=11 onclick="recolour(this.value)"> 
+                <label  for=11>Average School Pupil Absences</label></li>
+            <li><input type="radio" name="group1" id=12 value=12 onclick="recolour(this.value)"> 
+                <label  for=12>Housing domain rank </label></li>
+            <li><input type="radio" name="group1" id=13 value=13 onclick="recolour(this.value)"> 
+            	<label  for=13>Average housing domain score</label></li> 
+            <li><input type="radio" name="group1" id=14 value=14 onclick="recolour(this.value)"> 
+            	<label  for=14>Household Population </label></li>
+            <li><input type="radio" name="group1" id=15 value=15 onclick="recolour(this.value)"> 
+            	<label  for=15> Avg % of people in households without central heating</label></li>
+            <li><input type="radio" name="group1" id=16 value=16 onclick="recolour(this.value)">  
+            	<label  for=16>Avg % of people in overcrowded homes </label></li>
+            <li><input type="radio" name="group1" id=18 value=18 onclick="recolour(this.value)">  
+                <label  for=18> SIMD Crime 2012 rank</label></li>
+            <li><input type="radio" name="group1" id=19 value=19 onclick="recolour(this.value)">  
+                <label  for=19> SIMD Crime 2012 count</label></li>
+           <!-- <li><input type="radio" name="group1" value=17 >  
+            	<label  for=17>Police Force Area</label></li> -->
+            <li><input type="radio" name="group1" id=20 value=20 onclick="recolour(this.value)">  
+            	<label  for=20>SIMD Average Crimes per 10,000 tot.pop.</label></li>
+            <li><input type="radio" name="group1" id=21 value=21 onclick="recolour(this.value)">  
+            	<label  for=21>Electorate Number</label></li>
+            <li><input type="radio" name="group1" id=22 value=22 onclick="recolour(this.value)">  
+            	<label  for=22>Number of Votes </label></li>
+            <li><input type="radio" name="group1" id=23 value=23 onclick="recolour(this.value)">  
+            	<label  for=23>Yes Votes</label></li>
+            <li><input type="radio" name="group1" id=24 value=24 onclick="recolour(this.value)">  
+                <label  for=24> No Votes</label></li>
+            <li><input type="radio" name="group1" id=25 value=25 onclick="recolour(this.value)">  
+                <label  for=25>Rejected Papers </label></li>
+            <li><input type="radio" name="group1" id= 26 value=26 onclick="recolour(this.value)">  
+            	<label  for=26>Estimated population (2013)</label></li>
+            <li><input type="radio" name="group1" id=27 value=27 onclick="recolour(this.value)">  
+            	<label  for=27>Estimated Males (2013)</label></li>
+            <li><input type="radio" name="group1" id=28 value=28 onclick="recolour(this.value)">  
+            	<label  for=28>Estimated Females (2013)</label></li>
+            <li><input type="radio" name="group1" id=29 value=29 onclick="recolour(this.value)">  
+            	<label  for=29>"Area (square km)</label></li>
+        	<li><input type="radio" name="group1" id=30 value=30 onclick="recolour(this.value)">  
+            	<label  for=30>Population density</label></li>
+            <li><input type="radio" name="group1" id=31 value=31 onclick="recolour(this.value)">  
+            	<label  for=31>Council expenditure per capita (£)</label></li>
+</ul>
+</div>
+
+<center><div id="aesterplot"></div></center></td>
 </tr></table>
 
 
@@ -243,7 +267,7 @@ function recolour(id) {
 	  
       setProjection: function(element, options) {
          var projection = d3.geo.equirectangular()
-           .center([5, 5])
+           .center([5, 11])
            .rotate([4.4, 0])
            .scale(900)
            .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
@@ -261,9 +285,6 @@ function recolour(id) {
 			return false;
 	}
 </script>
-	
-<div id="box2"></div>
 
 </body>
-<div id="box1" class="popup_block"></div>
 </html>

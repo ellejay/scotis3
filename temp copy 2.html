@@ -31,23 +31,55 @@ d3.json("areas.json", function(json) {
 
 
 <script>
-//var order = ['fill1', 'fill2', 'fill3', 'fill4', 'fill5', 'fill6', 'fill7', 'fill8', 'fill9', 'fill10', 'fill11', 'fill12', 'fill13', 'fill14', 'fill1', 'fill1', 'fill1', 'fill18', 'fill19', 'fill20', 'fill21', 'fill22', 'fill23', 'fill24', 'fill25', 'fill26', 'fill27', 'fill28', 'fill29', 'fill30', 'fill31', 'fill32'];
 var order = new Array(32);
-  for (var i = 0; i < 32; i++) {
+ for (var i = 0; i < 32; i++) {
     order[i] = new Array(32);
-  }
+  };
 
 d3.json("areas.json", function(json) {
 		data = json;
 		names = d3.keys(data[0]);
-		for (var i = 0; i < 32; i++) {
-			for (var j = 0; j < data.length; j++) {           
-				order[i][j] = "fill" + data[j][names[i]];
-			};
+		
+		for (var j = 0; j < data.length; j++) {    
+				order[3][j] = data[j][names[4]];
+				order[4][j] = data[j][names[4]];
+				order[5][j] = data[j][names[6]];
+				order[6][j] = data[j][names[6]];
+				order[12][j] = data[j][names[12]];
+				order[13][j] = data[j][names[12]];
+				order[18][j] = data[j][names[18]];
+				order[19][j] = data[j][names[18]];
 		};
 });
 
+//Ideally ranks could be calculated from the file data
+order[1] = ["4", "2", "19", "25", "29", "30", "12", "14", "16", "20",  "21", "24", "3", "11", "5", "1", "8", "28", "27", "26", "15", "6", "32", "13", "10", "17", "31", "18", "7", "23", "22", "9"];
+order[2] = ["1", "2", "22", "31", "13", "32", "28", "8", "19", "12",  "16", "29", "3", "17", "11", "4", "20", "26", "30", "23", "24", "14", "27", "7", "10", "6", "21", "25", "15", "9", "18", "5"];
+order[7] = [4, 3, 19, 24, 29, 30, 9, 15, 14, 27, 23, 28, 7, 12, 5, 1, 8, 20, 22, 25, 13, 2, 32, 16, 10, 21, 31, 18, 6, 26, 17, 11]
+order[8] = [6, 7, 19, 24, 27, 30, 15, 9, 14, 28, 23, 29, 4, 13, 3, 1, 8, 21, 20, 25, 11, 2, 31, 18, 10, 22, 32, 16, 5, 26, 17, 12]
+order[9] = [5, 14, 17, 19, 7, 13, 26, 11, 31, 3, 4, 1, 2, 27, 18, 20, 15, 9, 23, 24, 21, 30, 12, 6, 25, 10, 29, 16, 22, 8, 32, 28]
+order[10] = [2, 1, 23, 15, 8, 12, 7, 31, 29, 4, 6, 3, 17, 19, 26, 32, 13, 22, 21, 9, 28, 30, 5, 18, 24, 11, 14, 16, 25, 20, 27, 10]
+order[11] = [1, 2, 28, 26, 21, 25, 30, 5, 11, 31, 24, 32, 14, 17, 7, 3, 8, 9, 13, 23, 16, 4, 18, 20, 22, 27, 29, 12, 15, 6, 10, 19]
+order[14] = [4, 2, 19, 24, 29, 30, 11, 13, 16, 18, 22, 23, 3, 12, 5, 1, 8, 27, 28, 25, 14, 6, 32, 15, 9, 20, 31, 17, 7, 26, 21, 10]
+order[15] = [15, 16, 13, 5, 31, 6, 10, 2, 26, 30, 20, 22, 4, 27, 25, 1, 8, 17, 28, 18, 19, 29, 3, 12, 11, 9, 7, 24, 21, 23, 14, 32]
+order[16] = [8, 31, 26, 19, 15, 30, 24, 3, 11, 21, 14, 22, 6, 17, 18, 1, 27, 2, 10, 25, 12, 4, 28, 23, 7, 29, 32, 20, 9, 16, 5, 13]
+order[20] = [4, 28, 24, 19, 10, 26, 22, 3, 8, 27, 23, 32, 11, 16, 20, 1, 12, 6, 21, 17, 5, 9, 29, 30, 7, 31, 25, 13, 15, 18, 2, 14]
+order[21] = [8, 6, 19, 24, 29, 30, 12, 14, 16, 20, 21, 23, 2, 11, 3, 1, 7, 28, 26, 22, 15, 4, 32, 13, 10, 17, 31, 18, 5, 27, 25, 9]
+order[22] = [8, 6, 19, 24, 29, 30, 12, 15, 16, 20, 21, 22, 2, 11, 3, 1, 7, 28, 27, 23, 14, 4, 32, 13, 10, 17, 31, 18, 5, 26, 25, 9]
+order[23] = [8, 7, 17, 26, 29, 30, 16, 10, 15, 20, 22, 28, 2, 12, 4, 1, 6, 23, 25, 24, 13, 3, 32, 14, 9, 21, 31, 18, 5, 27, 19, 11]
+order[24] = [8, 6, 18, 24, 29, 30, 9, 22, 19, 16, 20, 21, 1, 13, 3, 2, 7, 28, 26, 25, 15, 5, 31, 11, 12, 14, 32, 17, 4, 23, 27, 10]
+order[25] = [4, 10, 19, 23, 29, 31, 8, 12, 21, 16, 24, 25, 2, 9, 3, 1, 6, 28, 22, 26, 14, 5, 30, 11, 15, 18, 32, 17, 7, 20, 27, 13]
+order[26] = [8, 6, 17, 26, 29, 30, 12, 13, 16, 20, 21, 23, 2, 11, 3, 1, 7, 28, 27, 22, 15, 4, 32, 14, 10, 18, 31, 19, 5, 24, 25, 9]
+order[27] = [ 8, 6, 17, 25, 29, 30, 12, 14, 16, 20, 21, 24, 2, 11, 3, 1, 7, 28, 27, 22, 15, 4, 32, 13, 10, 18, 31, 19, 5, 23, 26, 9]
+order[28] = [8, 6, 17, 26, 29, 30, 12, 13, 16, 20, 21, 22, 2, 11, 3, 1, 7, 28, 27, 23, 15, 4, 32, 14, 9, 19, 31, 18, 5, 24, 25, 10]
+order[29] = [25, 4, 10, 2, 31, 7, 3, 32, 14, 27, 18, 28, 23, 22, 13, 26, 1, 29, 21, 8, 17, 19, 16, 5, 24, 6, 12, 15, 11, 9, 30, 20]
+order[30] = [4, 24, 21, 30, 13, 32, 27, 2, 19, 7, 18, 10, 3, 9, 14, 1, 31, 11, 15, 22, 17, 5, 28, 25, 6, 26, 29, 20, 16, 23, 8, 12]
+order[31] = [32, 31, 24, 4, 17, 2, 10, 9, 18, 19, 22, 12, 29, 25, 27, 5, 7, 8, 15, 28, 11, 23, 3, 26, 16, 14, 1, 20, 21, 13, 6, 30]
+
+
+
 function recolour(id) {
+	console.log(id + " " + order[id][0]);
 		
     map.updateChoropleth({
 	
@@ -176,31 +208,31 @@ function recolour(id) {
 	  
 	  fills: {
           defaultFill: '#000',
-          fill1: '#a83b42',  fill2: '#a63c47',   fill3: '#a43d4d',
-		  fill4: '#a23f52',  fill5: '#a04058',   fill6: '#9e425d',
-		  fill7: '#9C4363',   fill8: '#9A4569',	  fill9: '#98466E',
-		  fill10: '#964874',     fill11: '#944979',    fill12: '#924A7F',
-		  fill13: '#904C84',     fill14: '#8E4D8A', 	  fill15: '#8C4F90',
-		  fill16: '#8A5095',	  fill17: '#88529B',	  fill18: '#8653A0',
-		  fill19: '#8455A6',	  fill20: '#8256AC',	  fill21: '#8058B1',
-		  fill22: '#7E59B7',	  fill23: '#7C5ABC',	  fill24: '#7A5CC2',
-		  fill25: '#785DC7',	  fill26: '#765FCD',	  fill27: '#7460D3',
-		  fill28: '#7262D8',	  fill29: '#7063DE',	  fill30: '#6E65E3', 
-		  fill31: '#6C66E9',	  fill32: '#6A68EF',
+          1: '#a83b42',  2: '#a63c47',   3: '#a43d4d',
+		  4: '#a23f52',  5: '#a04058',   6: '#9e425d',
+		  7: '#9C4363',   8: '#9A4569',	  9: '#98466E',
+		  10: '#964874',     11: '#944979',    12: '#924A7F',
+		  13: '#904C84',     14: '#8E4D8A', 	  15: '#8C4F90',
+		  16: '#8A5095',	  17: '#88529B',	  18: '#8653A0',
+		  19: '#8455A6',	  20: '#8256AC',	  21: '#8058B1',
+		  22: '#7E59B7',	  23: '#7C5ABC',	  24: '#7A5CC2',
+		  25: '#785DC7',	  26: '#765FCD',	  27: '#7460D3',
+		  28: '#7262D8',	  29: '#7063DE',	  30: '#6E65E3', 
+		  31: '#6C66E9',	  32: '#6A68EF',
       },
 	  
 	  data: {
-		'abd': { fillKey: 'fill1' }, 'abs': { fillKey: 'fill2' }, 'ang': { fillKey: 'fill3' },
-		'arg': { fillKey: 'fill4' }, 'cla': { fillKey: 'fill5' }, 'com': { fillKey: 'fill6' },
-		'dum': { fillKey: 'fill7' }, 'dun': { fillKey: 'fill8' }, 'eay': { fillKey: 'fill9' },
-		'edu': { fillKey: 'fill10' }, 'elt': { fillKey: 'fill11' }, 'erf': { fillKey: 'fill12' },
-		'edn': { fillKey: 'fill13' }, 'flk': { fillKey: 'fill14' }, 'fif': { fillKey: 'fill15' },
-		'gla': { fillKey: 'fill16' }, 'hgh': { fillKey: 'fill17' }, 'inv': { fillKey: 'fill18' },
-		'mid': { fillKey: 'fill19' }, 'mry': { fillKey: 'fill20' }, 'nay': { fillKey: 'fill21' },
-		'nln': { fillKey: 'fill22' }, 'ork': { fillKey: 'fill23' }, 'per': { fillKey: 'fill24' },
-		'ren': { fillKey: 'fill25' }, 'brd': { fillKey: 'fill26' }, 'sht': { fillKey: 'fill27' },
-		'say': { fillKey: 'fill28' }, 'sln': { fillKey: 'fill29' }, 'str': { fillKey: 'fill30' },
-		'wdu': { fillKey: 'fill31' }, 'wlt': { fillKey: 'fill32' },
+		'abd': { fillKey: '1' }, 'abs': { fillKey: '2' }, 'ang': { fillKey: '3' },
+		'arg': { fillKey: '4' }, 'cla': { fillKey: '5' }, 'com': { fillKey: '6' },
+		'dum': { fillKey: '7' }, 'dun': { fillKey: '8' }, 'eay': { fillKey: '9' },
+		'edu': { fillKey: '10' }, 'elt': { fillKey: '11' }, 'erf': { fillKey: '12' },
+		'edn': { fillKey: '13' }, 'flk': { fillKey: '14' }, 'fif': { fillKey: '15' },
+		'gla': { fillKey: '16' }, 'hgh': { fillKey: '17' }, 'inv': { fillKey: '18' },
+		'mid': { fillKey: '19' }, 'mry': { fillKey: '20' }, 'nay': { fillKey: '21' },
+		'nln': { fillKey: '22' }, 'ork': { fillKey: '23' }, 'per': { fillKey: '24' },
+		'ren': { fillKey: '25' }, 'brd': { fillKey: '26' }, 'sht': { fillKey: '27' },
+		'say': { fillKey: '28' }, 'sln': { fillKey: '29' }, 'str': { fillKey: '30' },
+		'wdu': { fillKey: '31' }, 'wlt': { fillKey: '32' },
 	  },
 	  
 	  done: function(datamap) {
@@ -225,128 +257,6 @@ function recolour(id) {
         }
     });
 </script>
-
-<script>
-
-//CHANGE THIS VARIABLE TO BE THE CITY THAT IS SENT TO THIS SCRIPT
-var chosenCity = "Highland";
-//////////////////////////////////////////////////////////////////////////////////////////
-var overallRank;
-var educationRank;
-var housingRank;
-var crimeRank;
-
-d3.json("areas.json", function(error, data){
-
-	//Loop through the json data file
-	for(var i = 0; i< data.length;i++){
-		//If the city name matches the one given
-		if(data[i]["Local Authority Name"] == chosenCity){
-			//Get the values for each topic
-			overallRank = data[i]["Overall Average SIMD 2012 Rank"];
-			educationRank = data[i]["Education, Skills and Training domain 2012 average rank1"];
-			housingRank = data[i]["Housing domain rank 2004, 2006, 2009 & 2012"];
-			crimeRank = data[i]["SIMD Crime 2012 rank"];
-		}
-	}
-	
-	//Store each ranking topic in array for x axis labels
-	var topicArray = ["Education Rank", "Housing Rank", "Crime Rank", "Overall Rank"];
-	//Store values in an array for y axis values.
-	var valueArray = [educationRank, housingRank, crimeRank, overallRank];
-	//Testing
-	console.log(valueArray);
-	
-	
-	//Define the height and width variables
-	var margin = {top: 40, right: 100, bottom: 50, left: 40} 	//Spacing around edges of whole graph
-	var height = 400 - margin.top - margin.bottom,					//Height of graph
-	width = 600 - margin.left - margin.right,								//Width of graph
-	barWidth = 50,																	//Width of each bar
-	barOffSet = 80;																	//Space between bars
-	
-	//Define colours for each bar
-	var colours = d3.scale.linear()
-	.domain([0, valueArray.length*.33, valueArray.length*.66, valueArray.length])
-	.range(['#B58929','#C61C6F','#268BD2','#85992C']);
-	
-	//Define the scale of the Y axis
-	var yScale = d3.scale.linear()
-	.domain([0, d3.max(valueArray)])	//Domain is between 0 and 32 for "rankings"
-	.range([0, height]);
-	
-	//Define the scale of the x axis
-	var xScale = d3.scale.ordinal()
-	.domain(d3.range(0, valueArray.length))
-	.rangeBands([0, width]);
-	
-	//Define Scale for the X axis Line and labels
-	var xLineScale = d3.scale.ordinal()
-	.domain(topicArray)			//This gives labels as array items
-	.rangeBands([0, (width + margin.left + 5)]);
-	
-	//Create the chart
-	var myChart = d3.select('#box1').append('svg')		//Creates the background	
-		.attr('width', width + margin.left + margin.right)
-		.attr('height', height + margin.top + margin.bottom)
-		.attr('transform', 'translate(' + margin.left +',  '+margin.top +')')
-		.style('background', '#C9D7D6')
-		.selectAll('rect').data(valueArray)							//Creates the bars
-		.enter().append('rect')
-			.style('fill', function(d,i){
-				return colours(i);
-			})
-			.attr('width', xScale.rangeBand())
-			.attr('x', function(d, i){
-				return i * (barWidth + barOffSet);
-			})
-			.attr('height', 0)
-			.attr('y', height)
-			.attr('height', function(d){
-				return yScale(d);
-			})
-			.attr('y', function(d){
-				return height - yScale(d);
-			})
-	
-	//Y Axis Scale
-	var vGuideScale = d3.scale.linear()
-	.domain([0,d3.max(valueArray)])
-	.range([height,0])
-	
-	//Y Axis Labels
-	var vAxis = d3.svg.axis()
-	.scale(vGuideScale)
-	.orient('left')
-	.ticks(16)
-
-	//Y Axis draw line
-	var vGuide = d3.select('svg').append('g')
-	vAxis(vGuide)
-	vGuide.attr('transform','translate(' + margin.left -40  + ',' + margin.top + ')')
-	vGuide.selectAll('path')
-		.style({fill: 'none', stroke: "#000"})
-	vGuide.selectAll('line')
-		.style({stroke: "#000"})
-	
-	//X Axis Scale
-	var hAxis = d3.svg.axis()
-	.scale(xLineScale)
-	.orient('bottom');
-	
-	//X Axis draw line
-	var hGuide = d3.select('svg').append('g')
-	hAxis(hGuide)
-	hGuide.attr('transform', 'translate(0, ' + height + ')')
-	hGuide.selectAll('path')
-		.style({ fill: 'none', stroke: "#000"})
-	hGuide.selectAll('line')
-		.style({ stroke: "000"})
-
-});
-
-	</script>
-
 	
 <div id="box2"></div>
 
